@@ -19,6 +19,7 @@ router.post("/get-doctor-info-by-user-id", authMiddleware, async (req, res) => {
       .send({ message: "Error getting doctor info", success: false, error });
   }
 });
+
 router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
   try {
     const doctor = await Doctor.findOneAndUpdate(
