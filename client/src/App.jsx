@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 // import { Button } from "antd";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import Home from "./pages/Home";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import ApplyDoctor from "./pages/ApplyDoctor";
@@ -17,9 +17,15 @@ import BookAppointment from "./pages/BookAppointment";
 import Appointments from "./pages/Appointments";
 // import DoctorAppoitments from "./pages/Doctor/DoctorAppointments";
 import DoctorAppointments from "./pages/Doctor/DoctorAppointments";
+import { hideLoading, showLoading } from "./redux/alertsSlice";
+import axios from "axios";
+import { setUser } from "./redux/userSlice";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   return (
     <BrowserRouter>
       {loading && (
@@ -49,9 +55,9 @@ function App() {
         <Route
           path="/"
           element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
+            // <ProtectedRoute>
+            <Home />
+            // {/* </ProtectedRoute> */}
           }
         />
         <Route
