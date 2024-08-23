@@ -164,9 +164,10 @@ router.post("/delete-all-notifications", authMiddleware, async (req, res) => {
   }
 });
 
-router.get("/get-all-approved-doctors", authMiddleware, async (req, res) => {
+router.get("/get-all-approved-doctors", async (req, res) => {
   try {
     const doctors = await Doctor.find({ status: "approved" });
+    console.log(doctors);
     res.status(200).send({
       message: "Doctors fetched successfully",
       success: true,
