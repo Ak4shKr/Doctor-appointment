@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUser } from "../redux/userSlice";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
+import toast from "react-hot-toast";
 
 function ProtectedRoute(props) {
   const { user } = useSelector((state) => state.user);
@@ -26,12 +27,15 @@ function ProtectedRoute(props) {
         dispatch(setUser(response.data.data));
       } else {
         localStorage.clear();
-        navigate("/login");
+        toast.info("Please login to continue");
+        console.log(response.data);
       }
     } catch (error) {
       dispatch(hideLoading());
       localStorage.clear();
-      navigate("/login");
+      // navigate("/login");
+      toast.error("Session expired, please login again");
+      console.log(error);
     }
   };
   useEffect(() => {
@@ -43,7 +47,10 @@ function ProtectedRoute(props) {
   if (localStorage.getItem("token")) {
     return <div>{props.children}</div>;
   } else {
-    return <Navigate to="/login" />;
+    return (
+      // keep at same page if not logged in
+      <Navigate to="/" replace />
+    );
   }
 }
 
