@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "../layout.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -82,6 +82,14 @@ function Layout({ children }) {
     : userMenu;
 
   const role = user?.isAdmin ? "Admin" : user?.isDoctor ? "Doctor" : "user";
+  const token = localStorage.getItem("token");
+
+  const removeToken = () => {
+    localStorage.clear();
+    // keep to same page with refresh
+    window.location.reload();
+  };
+
   return (
     <div className="main">
       <div className="d-flex layout">
@@ -112,7 +120,8 @@ function Layout({ children }) {
               }}
             >
               <i className="ri-logout-circle-line"></i>
-              {!collapsed && <Link to="/login">Logout</Link>}
+              {!collapsed && token && <Link onClick={removeToken}>Logout</Link>}
+              {!collapsed && !token && <Link to="/login">Login</Link>}
             </div>
           </div>
         </div>
