@@ -42,4 +42,4 @@ Contributions are welcome! Please fork the repo and submit a pull request.
 ## 📬 Contact
 
 For inquiries, email **akashsahabanaul@gmail.com**.
-               linkedin **linkedin.com/in/akash-saha-cod**
+               linkedin: `https://linkedin.com/in/akash-saha-cod`
